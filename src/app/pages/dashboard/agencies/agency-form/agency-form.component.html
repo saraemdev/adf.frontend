@@ -1,0 +1,108 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="agencyFeedback"></p>
+</div>
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 *ngIf="isUpdateMode">Actualizar institución</h4>
+        <h4 *ngIf="!isUpdateMode">Crear institución</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form
+              class="form-floating"
+              *ngIf="agencyForm"
+              [formGroup]="agencyForm"
+              (ngSubmit)="saveAgency()"
+            >
+              <div class="form-floating m-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControl]="title"
+                  id="title"
+                  placeholder="Write a title"
+                />
+                <label for="title">Título*</label>
+                <div
+                  *ngIf="title.invalid && (title.dirty || title.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="title.errors?.['required']">
+                    El título es obligatorio
+                  </div>
+                  <div *ngIf="title.errors?.['minlength']">
+                    El título debe ser más largo
+                  </div>
+                  <div *ngIf="title.errors?.['maxlength']">
+                    El título debe ser más corto
+                  </div>
+                </div>
+              </div>
+              <div class="m-3">
+                <label class="form-label" for="img"
+                  >Imagen de la institución*</label
+                >
+                <input
+                  type="file"
+                  class="form-control form-control-sm"
+                  [formControl]="img"
+                  id="img"
+                  placeholder="agency img url"
+                  (change)="uploadImg($event)"
+                />
+                <div
+                  *ngIf="img.invalid && (img.dirty || img.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="img.errors?.['required']">
+                    La imagen es obligatoria
+                  </div>
+                </div>
+                <div
+                  *ngIf="fileUrl"
+                  class="row justify-content-center row-cols-1 row-cols-sm-3 row-cols-md-5 g-5 m-0"
+                >
+                  <div class="col">
+                    <div class="card shadow-sm">
+                      <img
+                        src="{{ fileUrl }}"
+                        class="card-img-top"
+                        width="100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="!onlySuperuser" class="m-3 text-center">
+                <label class="m-3" for="isActive">Activo</label>
+                <ng-toggle
+                  [formControl]="isActive"
+                  [value]="false"
+                  [color]="{
+                    unchecked: '#98c1d9',
+                    checked: '#ee6c4d'
+                  }"
+                ></ng-toggle>
+              </div>
+              <div class="text-center">
+                <button *ngIf="isUpdateMode" class="btn" type="submit">
+                  Guardar los cambios
+                </button>
+                <button *ngIf="!isUpdateMode" class="btn" type="submit">
+                  Crear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

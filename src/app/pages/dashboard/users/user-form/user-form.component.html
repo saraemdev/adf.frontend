@@ -1,0 +1,145 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="userFeedback"></p>
+</div>
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 *ngIf="isUpdateMode">Actualizar usuario</h4>
+        <h4 *ngIf="!isUpdateMode">Crear usuario</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form
+              class="form-floating"
+              *ngIf="userForm"
+              [formGroup]="userForm"
+              (ngSubmit)="saveUser()"
+            >
+              <div class="form-floating m-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControl]="fullName"
+                  id="fullName"
+                  placeholder="name@example.com"
+                />
+                <label for="fullName">Nombre completo*</label>
+                <div
+                  *ngIf="
+                    fullName.invalid && (fullName.dirty || fullName.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="fullName.errors?.['required']">
+                    El nombre es obligatorio
+                  </div>
+                  <div *ngIf="email.errors?.['minlength']">
+                    El nombre parece demasiado corto
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-floating m-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  [formControl]="email"
+                  id="email"
+                  placeholder="name@example.com"
+                />
+                <label for="email">Email*</label>
+                <div
+                  *ngIf="email.invalid && (email.dirty || email.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="email.errors?.['required']">
+                    El email es obligatorio
+                  </div>
+                  <div *ngIf="email.errors?.['pattern']">
+                    No parece un email válido
+                  </div>
+                  <div *ngIf="email.errors?.['minlength']">
+                    El email parece demasiado corto
+                  </div>
+                  <div *ngIf="email.errors?.['maxlength']">
+                    El email debe ser más corto
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-floating m-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  [formControl]="password"
+                  id="password"
+                  placeholder="password"
+                />
+                <label for="password">Password*: </label>
+                <div
+                  *ngIf="email.invalid && (email.dirty || email.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="email.errors?.['required']">
+                    La contraseña es obligatoria
+                  </div>
+                  <div *ngIf="email.errors?.['pattern']">
+                    No parece muy buena contraseña
+                  </div>
+                  <div *ngIf="email.errors?.['minlength']">
+                    La contraseña parece demasiado corta
+                  </div>
+                  <div *ngIf="email.errors?.['maxlength']">
+                    La contraseña debe ser más corta
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="isAdmin || isCrossover" class="m-3">
+                <label for="roles">Rol/Roles</label>
+
+                <select
+                  class="form-select"
+                  [formControl]="roles"
+                  id="roles"
+                  placeholder="Choose a role"
+                  multiple
+                >
+                  <option *ngFor="let role of rolesList" [ngValue]="role">
+                    {{ role }}
+                  </option>
+                </select>
+              </div>
+
+              <div *ngIf="isAdmin || isCrossover" class="m-3 text-center">
+                <label class="m-3" for="isActive">Activo</label>
+                <ng-toggle
+                  [formControl]="isActive"
+                  [value]="false"
+                  [color]="{
+                    unchecked: '#98c1d9',
+                    checked: '#ee6c4d'
+                  }"
+                ></ng-toggle>
+              </div>
+
+              <div class="text-center">
+                <button *ngIf="isUpdateMode" class="btn" type="submit">
+                  Guardar los cambios
+                </button>
+                <button *ngIf="!isUpdateMode" class="btn" type="submit">
+                  Crear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

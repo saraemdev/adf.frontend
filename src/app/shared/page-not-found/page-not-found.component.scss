@@ -1,0 +1,37 @@
+.error-box {
+  height: 100%;
+  position: fixed;
+  background: url(../../../assets/img/pagenotfound.jpg) no-repeat center center
+    #fff;
+  width: 100%;
+}
+.error-box {
+  width: 100%;
+  left: 0px;
+  right: 0px;
+}
+
+.error-body {
+  padding-top: 5%;
+}
+.error-body h1 {
+  font-size: 210px;
+  font-weight: 900;
+  text-shadow: 4px 4px 0 #e0fbfc, 6px 6px 0 #ee6c4d;
+  line-height: 210px;
+}
+h1,
+h3 {
+  color: #3d5a80;
+}
+
+button {
+  background-color: #3d5a80;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #ee6c4d;
+  color: #e0fbfc;
+  border: 1px solid #3d5a80;
+}

@@ -1,0 +1,167 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="procedureFeedback"></p>
+</div>
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 *ngIf="isUpdateMode">Actualizar procedimiento</h4>
+        <h4 *ngIf="!isUpdateMode">Crear procedimiento</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form
+              class="form-floating"
+              *ngIf="procedureForm"
+              [formGroup]="procedureForm"
+              (ngSubmit)="saveProcedure()"
+            >
+              <div class="form-floating m-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControl]="title"
+                  id="title"
+                  placeholder="Write a title"
+                />
+                <label for="title">Título*</label>
+                <div
+                  *ngIf="title.invalid && (title.dirty || title.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="title.errors?.['required']">
+                    El título es obligatorio
+                  </div>
+                  <div *ngIf="title.errors?.['minlength']">
+                    El título debe ser más largo
+                  </div>
+                  <div *ngIf="title.errors?.['maxlength']">
+                    El título debe ser más corto
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating m-3">
+                <textarea
+                  class="form-control"
+                  [formControl]="description"
+                  placeholder="Write a description"
+                  id="description"
+                  style="height: 75px"
+                ></textarea>
+                <label for="description">Descripción*</label>
+                <div
+                  *ngIf="
+                    description.invalid &&
+                    (description.dirty || description.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="description.errors?.['required']">
+                    La descripción es obligatoria
+                  </div>
+                  <div *ngIf="description.errors?.['minlength']">
+                    La descripción debe ser más larga
+                  </div>
+                  <div *ngIf="description.errors?.['maxlength']">
+                    La descripción debe ser más corta
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating m-3">
+                <textarea
+                  class="form-control"
+                  [formControl]="details"
+                  placeholder="Write the procedure details"
+                  id="details"
+                  style="height: 100px"
+                ></textarea>
+                <label for="details">Detalles del procedimiento</label>
+              </div>
+              <div class="form-floating m-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControl]="phone"
+                  id="phone"
+                  placeholder="Phone relation"
+                />
+                <label for="phone">Información telefónica</label>
+              </div>
+              <div class="form-floating m-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControl]="url"
+                  id="url"
+                  placeholder="url to procedure"
+                />
+                <label for="url">Enlace al procedimiento*</label>
+                <div
+                  *ngIf="url.invalid && (url.dirty || url.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="url.errors?.['required']">
+                    El enlace es obligatorio
+                  </div>
+                  <div *ngIf="url.errors?.['minlength']">
+                    El enlace debe ser más largo
+                  </div>
+                </div>
+              </div>
+              <div class="m-3 form-floating">
+                <select
+                  class="form-select"
+                  [formControl]="agencyId"
+                  id="agencyId"
+                  placeholder="Choose an agency"
+                  required
+                >
+                  <option
+                    *ngFor="let listedAgency of agenciesList"
+                    [ngValue]="listedAgency.id"
+                  >
+                    {{ listedAgency.title }}
+                  </option>
+                </select>
+                <label for="agencyId">Institución*</label>
+                <div
+                  *ngIf="
+                    agencyId.invalid && (agencyId.dirty || agencyId.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="agencyId.errors?.['required']">
+                    La institución es obligatoria
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!onlyUser" class="m-3 text-center">
+                <label class="m-3" for="isActive">Activo</label>
+                <ng-toggle
+                  [formControl]="isActive"
+                  [value]="false"
+                  [color]="{
+                    unchecked: '#98c1d9',
+                    checked: '#ee6c4d'
+                  }"
+                ></ng-toggle>
+              </div>
+              <div class="text-center">
+                <button *ngIf="isUpdateMode" class="btn" type="submit">
+                  Guardar los cambios
+                </button>
+                <button *ngIf="!isUpdateMode" class="btn" type="submit">
+                  Crear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

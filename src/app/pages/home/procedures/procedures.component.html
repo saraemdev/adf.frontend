@@ -1,0 +1,61 @@
+<section class="py-5 bg-light">
+  <div class="container">
+    <div
+      class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+    >
+      <div class="col text-center">
+        <button class="btn btn-primary m-3" routerLink="/home">
+          <fa-icon class="fa-xl m-1" [icon]="faCircleLeft"></fa-icon>
+          Volver
+        </button>
+      </div>
+      <div class="col">
+        <div class="card shadow-sm">
+          <img
+            src="{{ agency.img }}"
+            alt="{{ agency.title }}"
+            class="card-img-top"
+            width="100%"
+            height="225"
+          />
+          <div class="card-body bg-card">
+            <h4 class="card-text text-center">{{ agency.title }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+  <div class="container py-5">
+    <div
+      class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+      *ngIf="existProcedures"
+    >
+      <div class="col" *ngFor="let procedure of procedures">
+        <div class="card shadow-sm">
+          <div class="card-body bg-card text-center">
+            <h4 class="card-text">{{ procedure.title }}</h4>
+            <p class="card-text text-muted">{{ procedure.description }}</p>
+            <button
+              class="btn btn-outline-primary text-center"
+              routerLink="/procedure/{{ procedure.id }}"
+            >
+              <fa-icon class="fa-xl m-1" [icon]="faCirclePlus"></fa-icon>
+              Información
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+      *ngIf="!existProcedures"
+    >
+      <h4>
+        En este momento no existen procedimientos disponibles en esta
+        institución
+      </h4>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

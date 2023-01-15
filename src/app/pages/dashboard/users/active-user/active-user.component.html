@@ -1,0 +1,65 @@
+<div class="d-flex mt-5 m-3">
+  <h4 class="">Usuarios no activos</h4>
+
+  <div class="ms-auto">
+    <button
+      class="btn btn-outline-primary text-center"
+      routerLink="/dashboard/user"
+    >
+      <fa-icon class="fa-xl m-1" [icon]="faCirclePlus"></fa-icon>
+      Nuevo usuario
+    </button>
+  </div>
+</div>
+<div *ngIf="!existUsers" class="d-flex mt-5 m-3">
+  <p class="">No hay ningún usuario no activo en este momento</p>
+</div>
+
+<div *ngIf="existUsers" class="table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Roles</th>
+        <th>Estado</th>
+        <th class="text-nowrap">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of nonActiveUsers; index as i">
+        <td>{{ user.fullName }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <span class="badge me-2" *ngFor="let rol of user.roles"
+            >{{ rol }}
+          </span>
+        </td>
+
+        <td *ngIf="user.isActive">
+          <span class="badge bg-true">Activo</span>
+        </td>
+        <td *ngIf="!user.isActive">
+          <span class="badge bg-false">No activo</span>
+        </td>
+
+        <td class="d-flex justify-content-around">
+          <a routerLink="/dashboard/user/{{ user.id }}" data-toggle="tooltip">
+            <fa-icon class="fa fa-update" [icon]="faPen"></fa-icon>
+          </a>
+          <a
+            *ngIf="user.id"
+            (click)="deleteUser(user.id, user.fullName)"
+            data-toggle="tooltip"
+          >
+            <fa-icon
+              *ngIf="isAdmin"
+              class="fa fa-delete"
+              [icon]="faTrash"
+            ></fa-icon>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

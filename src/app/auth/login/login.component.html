@@ -1,0 +1,89 @@
+<section
+  class="overflow-hidden login"
+  style="background-image: url(../../../assets/img/login-bg.jpg)"
+>
+  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10"></div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div class="card bg-glass">
+          <div class="card-body px-4 py-5 px-md-5 text-muted">
+            <h1 class="text-center py-3">
+              <a routerLink="/home"
+                ><img
+                  src="../../assets/icons/header-logo.svg"
+                  width="25%"
+                  loading="lazy"
+              /></a>
+
+              <br />
+              Login
+            </h1>
+
+            <form
+              class="form-floating"
+              *ngIf="loginForm"
+              [formGroup]="loginForm"
+              (ngSubmit)="login()"
+            >
+              <div class="form-floating m-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  [formControl]="email"
+                  id="email"
+                  placeholder="myemail@mydomain.com"
+                  required
+                />
+                <label for="email">Email*</label>
+                <div
+                  *ngIf="email.invalid && (email.dirty || email.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="email.errors?.['required']">
+                    El correo electrónico es obligatorio
+                  </div>
+                  <div *ngIf="email.errors?.['pattern']">
+                    No parece un correo electrónico
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating m-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  [formControl]="password"
+                  id="password"
+                  placeholder="password"
+                  required
+                />
+                <label for="password">Password*</label>
+                <div
+                  *ngIf="
+                    password.invalid && (password.dirty || password.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="password.errors?.['required']">
+                    La contraseña es obligatoria
+                  </div>
+                  <div *ngIf="password.errors?.['minlength']">
+                    La contraseña no parece suficientemente larga
+                  </div>
+                  <div *ngIf="password.errors?.['maxlength']">
+                    La contraseña parece excesivamente larga
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-floating m-3 text-center">
+                <button type="submit" class="btn btn-block mb-4">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
